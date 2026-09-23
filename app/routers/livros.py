@@ -1,27 +1,36 @@
 from fastapi import APIRouter, HTTPException
 from app.schemas.livro import LivroSchema
+from app.database.connection import SessionLocal
+from app.database.models import LivroModel
+from app.schemas.livro import LivroCreate
+from app.database.connection import get_db
+from app.services import livro_service
 
 router = APIRouter(
     prefix="/livros",
     tags=["livros"],
 )
 
-Livros = [
-    LivroSchema(id=1, titulo="O Senhor dos Anéis", autor="J.R.R. Tolkien", ano_publicacao=1954),
-    LivroSchema(id=2, titulo="1984", autor="George Orwell", ano_publicacao=1949),
-    LivroSchema(id=3, titulo="O Pequeno Príncipe", autor="Antoine de Saint-Exupéry", ano_publicacao=1943),
-    LivroSchema(id=4, titulo="Dom Casmurro", autor="Machado de Assis", ano_publicacao=1899),
-]
-
 # Lista todos os livros
 @router.get("/")
-async def listar_livros():
-    return {"livros": Livros}
+async def listar_livros(
+    db:Session = Depends(get_db)
+):
+    return livro_service.listar_livros(db)
 
 # Adiciona um novo livro
 @router.post("/")
-async def adicionar_livro(livro: LivroSchema):
-    Livros.append(livro)
+async def adicionar_livro(livro: LivroCreate):
+    db = SessionLocal()
+    novo_livro = LivroModel(
+        titulo = livro.titulo,
+        autor = livro.autor,
+        ano_publicacao = livro.ano_publicacao
+    )
+    db.add(novo_livro)
+    db.commit()
+    db.refresh(novo_livro)
+    db.close()
     return {"message": "Livro adicionado com sucesso!"}
 
 # Atualiza um livro existente
