@@ -4,12 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livraria</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-    <h2>Bem-vindo à Livraria</h2>
-    <p>Explore nossa coleção de livros e encontre o próximo título que você vai adorar
+    <section class="container">
+
+        <h1>Biblioteca Ainlivrinho</h1>
+
+        <div class="card">
+            <h2>Novo Livro</h2>
+
+            <form id="formLivro">
+                <input type="text" id="titulo" placeholder="Título do livro" required>
+                <input type="text" id="autor" placeholder="Autor do livro" required>
+                <input type="number" id="ano_publicacao" placeholder="Ano de publicação" required>
+            </form>
+
+            <button type="submit">Adicionar Livro</button>
+
+            <div class="card">
+                <h2>Lista Cadastrados</h2>
+                <ul id="livrosList"></ul>
+            </div>
+
+        </div>
+
+    </section>
 
     <script src="js/script.js"></script>
 </body>

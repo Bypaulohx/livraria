@@ -1,14 +1,20 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
-class LivroSchema(BaseModel):
-    id: int
+
+class LivroBase(BaseModel):
     titulo: str = Field(min_length=3, max_length=100)
     autor: str = Field(min_length=3, max_length=100)
     ano_publicacao: int = Field(ge=0, description="Ano de publicação do livro")
 
-class LivroCreate(LivroSchema):
+
+class LivroCreate(LivroBase):
     pass
 
-class LivroResponse(LivroSchema):
+
+class LivroSchema(LivroBase):
     id: int
     model_config = ConfigDict(from_attributes=True)
+
+
+class LivroResponse(LivroSchema):
+    pass

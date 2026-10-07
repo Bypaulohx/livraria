@@ -10,8 +10,9 @@ def buscar_livro(id: int, db: Session):
 
 def adicionar_livro(livro: LivroCreate, db: Session):
     novo_livro = LivroModel(
-        titulo = livro.titulo,
-        autor = livro.autor
+        titulo=livro.titulo,
+        autor=livro.autor,
+        ano_publicacao=livro.ano_publicacao,
     )
 
     db.add(novo_livro)
@@ -28,6 +29,7 @@ def atualizar_livro(id: int, livro: LivroCreate, db: Session):
 
     livro_db.titulo = livro.titulo
     livro_db.autor = livro.autor
+    livro_db.ano_publicacao = livro.ano_publicacao
 
     db.commit()
     db.refresh(livro_db)
