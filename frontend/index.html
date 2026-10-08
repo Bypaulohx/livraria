@@ -16,12 +16,12 @@
             <h2>Novo Livro</h2>
 
             <form id="formLivro">
-                <input type="text" id="titulo" placeholder="Título do livro" required>
-                <input type="text" id="autor" placeholder="Autor do livro" required>
-                <input type="number" id="ano_publicacao" placeholder="Ano de publicação" required>
+                <input type="text" id="titulo" placeholder="Título do livro" minlength="3" maxlength="100" required>
+                <input type="text" id="autor" placeholder="Autor do livro" minlength="3" maxlength="100" required>
+                <input type="number" id="ano_publicacao" placeholder="Ano de publicação" min="0" required>
+                <button type="submit">Adicionar Livro</button>
             </form>
-
-            <button type="submit">Adicionar Livro</button>
+            <p id="formMessage" role="status" aria-live="polite"></p>
 
             <div class="card">
                 <h2>Lista Cadastrados</h2>
